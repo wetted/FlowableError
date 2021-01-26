@@ -22,8 +22,10 @@ class FlowableErrorControllerTest extends Specification {
 
         then:
         def e = thrown(HttpClientResponseException)
-        e.status == HttpStatus.BAD_REQUEST
-        e.message == 'testing flowable error'
+        verifyAll {
+            e.status == HttpStatus.BAD_REQUEST      // actual is HttpStatus.OK
+            e.message == 'testing flowable error'   // actual is "Empty body"
+        }
     }
 
     @Client("/flow")
